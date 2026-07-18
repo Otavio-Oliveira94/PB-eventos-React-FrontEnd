@@ -1,29 +1,43 @@
-export default function EventoCard({ evento, onDelete, onEdit }) {
+import { Link } from "react-router";
+
+export default function EventoCard({ evento, onDelete }) {
+  function formatarData(data) {
+    if (!data) {
+      return "Data não informada";
+    }
+
+    return new Date(data).toLocaleString("pt-BR");
+  }
+
   return (
-    <div className="card">
-      <h3>{evento.titulo}</h3>
+    <article className="card">
+      <Link to={`/eventos/${evento.id}`} className="card-link">
+        <h2>{evento.titulo}</h2>
 
-      <p className="subtitulo">{evento.subTitulo}</p>
-      <span className="badge">{evento.tipoEvento}</span>
+        <p className="card-subtitulo">{evento.subTitulo}</p>
 
-      <hr />
-      <div className="info">
         <p>
-          {evento.endereco?.cidade} - {evento.endereco?.estado}
+          <strong>Tipo:</strong> {evento.tipoEvento}
         </p>
+
         <p>
-          {evento.endereco?.rua}, {evento.endereco?.numero},{" "}
-          {evento.endereco?.complemento}
+          <strong>Local:</strong> {evento.endereco?.cidade || "Não informado"}
         </p>
-      </div>
-      <div className="acoes">
-        <button className="botao-editar" onClick={() => onEdit(evento)}>
-          Editar
-        </button>
-        <button className="botao-excluir" onClick={() => onDelete(evento.id)}>
-          Excluir
-        </button>
-      </div>
-    </div>
+
+        <p>
+          <strong>Início:</strong> {formatarData(evento.inicioEvento)}
+        </p>
+
+        <span className="card-detalhes">Ver detalhes</span>
+      </Link>
+
+      <button
+        type="button"
+        className="botao-excluir"
+        onClick={() => onDelete(evento.id)}
+      >
+        Excluir
+      </button>
+    </article>
   );
 }
