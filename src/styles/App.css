@@ -273,3 +273,218 @@ input {
     flex-direction: column;
   }
 }
+
+.inscricoes-secao {
+  margin-top: 28px;
+}
+
+.inscricoes-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+
+.inscricoes-cabecalho h2 {
+  margin-bottom: 6px;
+}
+
+.inscricoes-cabecalho p {
+  color: #6b7280;
+}
+
+.inscricoes-contador {
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #1d4ed8;
+  background: #dbeafe;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.inscricoes-layout {
+  display: grid;
+  grid-template-columns:
+    minmax(260px, 0.8fr)
+    minmax(0, 1.2fr);
+  gap: 20px;
+}
+
+.inscricao-form-card,
+.inscricoes-lista-card {
+  padding: 22px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.inscricao-form-card h3,
+.inscricoes-lista-card h3 {
+  margin-bottom: 18px;
+}
+
+.inscricao-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.campo-formulario {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo-formulario label {
+  font-size: 0.9rem;
+  font-weight: bold;
+  color: #374151;
+}
+
+.campo-formulario input {
+  width: 100%;
+  padding: 11px 12px;
+  color: #1f2937;
+  background: white;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  outline: none;
+}
+
+.campo-formulario input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.campo-formulario input:disabled {
+  color: #6b7280;
+  background: #f3f4f6;
+}
+
+.botao-inscrever {
+  padding: 12px 16px;
+  font-weight: bold;
+  color: white;
+  background: #2563eb;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.botao-inscrever:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+.botao-inscrever:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.aviso-inscricao {
+  margin-bottom: 18px;
+  padding: 12px 15px;
+  border-radius: 7px;
+}
+
+.aviso-inscricao-sucesso {
+  color: #166534;
+  background: #dcfce7;
+  border: 1px solid #bbf7d0;
+}
+
+.aviso-inscricao-erro {
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+}
+
+.inscricoes-estado {
+  padding: 20px;
+  text-align: center;
+  color: #6b7280;
+  background: #f9fafb;
+  border-radius: 7px;
+}
+
+.inscricoes-estado-erro {
+  color: #b91c1c;
+  background: #fef2f2;
+}
+
+.inscricoes-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.inscricao-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 16px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+.inscricao-info {
+  min-width: 0;
+}
+
+.inscricao-info h4 {
+  margin-bottom: 5px;
+}
+
+.inscricao-email {
+  color: #2563eb;
+  overflow-wrap: anywhere;
+}
+
+.inscricao-data {
+  margin-top: 8px;
+  font-size: 0.85rem;
+  color: #6b7280;
+}
+
+.botao-remover-inscricao {
+  flex-shrink: 0;
+  padding: 8px 12px;
+  color: #b91c1c;
+  background: white;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.botao-remover-inscricao:hover:not(:disabled) {
+  background: #fee2e2;
+}
+
+.botao-remover-inscricao:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 760px) {
+  .inscricoes-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .inscricoes-cabecalho {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .inscricao-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .botao-remover-inscricao {
+    width: 100%;
+  }
+}
