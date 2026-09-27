@@ -9,6 +9,10 @@ export default function Home() {
       </header>
 
       <nav className="menu-opcoes">
+        <Link to="/historico" className="menu-card">
+          <h2>Histórico</h2>
+          <p>Consulte as alterações realizadas nos eventos e nas inscrições.</p>
+        </Link>
         <Link to="/eventos" className="menu-card">
           <h2>Eventos</h2>
           <p>Visualize os eventos cadastrados e acesse suas informações.</p>

@@ -3,11 +3,14 @@ import Home from "./pages/Home";
 import Eventos from "./pages/Eventos";
 import CadastroEvento from "./pages/CadastroEvento";
 import EventoDetalhes from "./pages/EventoDetalhes";
+import Historico from "./pages/Historico";
 
 export default function App() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+
+      <Route path="/historico" element={<Historico />} />
 
       <Route path="/eventos" element={<Eventos />} />
 
