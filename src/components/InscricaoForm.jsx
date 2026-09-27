@@ -66,7 +66,7 @@ export default function InscricaoForm({ onSave, salvando }) {
       </div>
 
       <button type="submit" className="botao-inscrever" disabled={salvando}>
-        {salvando ? "Realizando inscrição..." : "Inscrever participante"}
+        {salvando ? "Enviando solicitação..." : "Solicitar inscrição"}
       </button>
     </form>
   );

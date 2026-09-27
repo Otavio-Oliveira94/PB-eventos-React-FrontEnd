@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
 import InscricaoCard from "../components/InscricaoCard";
 import InscricaoForm from "../components/InscricaoForm";
@@ -18,6 +18,7 @@ export default function EventoDetalhes() {
 
   const [inscricoes, setInscricoes] = useState([]);
   const [carregandoInscricoes, setCarregandoInscricoes] = useState(true);
+  const [atualizandoInscricoes, setAtualizandoInscricoes] = useState(false);
   const [erroInscricoes, setErroInscricoes] = useState("");
 
   const [salvando, setSalvando] = useState(false);
@@ -25,23 +26,14 @@ export default function EventoDetalhes() {
   const [erroAcao, setErroAcao] = useState("");
   const [mensagemSucesso, setMensagemSucesso] = useState("");
 
-  useEffect(() => {
-    async function carregarEvento() {
-      setCarregandoEvento(true);
-      setErroEvento("");
-
-      try {
-        const dados = await buscarEventoPorId(id);
-        setEvento(dados);
-      } catch {
-        setErroEvento("Não foi possível encontrar o evento.");
-      } finally {
-        setCarregandoEvento(false);
+  const carregarInscricoes = useCallback(
+    async (carregamentoInicial = false) => {
+      if (carregamentoInicial) {
+        setCarregandoInscricoes(true);
+      } else {
+        setAtualizandoInscricoes(true);
       }
-    }
 
-    async function carregarInscricoes() {
-      setCarregandoInscricoes(true);
       setErroInscricoes("");
 
       try {
@@ -54,13 +46,35 @@ export default function EventoDetalhes() {
             "Verifique se o serviço de inscrições está ativo.",
         );
       } finally {
-        setCarregandoInscricoes(false);
+        if (carregamentoInicial) {
+          setCarregandoInscricoes(false);
+        } else {
+          setAtualizandoInscricoes(false);
+        }
+      }
+    },
+    [id],
+  );
+
+  useEffect(() => {
+    async function carregarEvento() {
+      setCarregandoEvento(true);
+      setErroEvento("");
+
+      try {
+        const dados = await buscarEventoPorId(id);
+
+        setEvento(dados);
+      } catch {
+        setErroEvento("Não foi possível encontrar o evento.");
+      } finally {
+        setCarregandoEvento(false);
       }
     }
 
     carregarEvento();
-    carregarInscricoes();
-  }, [id]);
+    carregarInscricoes(true);
+  }, [id, carregarInscricoes]);
 
   async function salvarInscricao(dadosParticipante) {
     setSalvando(true);
@@ -79,23 +93,23 @@ export default function EventoDetalhes() {
       ]);
 
       setErroInscricoes("");
-      setMensagemSucesso("Participante inscrito com sucesso.");
+
+      setMensagemSucesso(
+        "Solicitação de inscrição recebida. " +
+          "A validação do evento será processada em seguida.",
+      );
 
       return true;
     } catch (erro) {
-      if (erro.status === 404) {
+      if (erro.status === 400) {
         setErroAcao(
-          "O evento não existe mais. " + "Atualize a página e tente novamente.",
-        );
-      } else if (erro.status === 503) {
-        setErroAcao(
-          "O serviço de eventos está indisponível. " +
-            "Tente novamente mais tarde.",
+          "Os dados da inscrição são inválidos. " +
+            "Verifique as informações e tente novamente.",
         );
       } else {
         setErroAcao(
-          "Não foi possível realizar a inscrição. " +
-            "Verifique se os serviços estão ativos.",
+          "Não foi possível enviar a solicitação de inscrição. " +
+            "Verifique se o serviço de inscrições está ativo.",
         );
       }
 
@@ -214,12 +228,12 @@ export default function EventoDetalhes() {
         <header className="inscricoes-cabecalho">
           <div>
             <h2>Inscrições do evento</h2>
-            <p>Cadastre e gerencie os participantes.</p>
+            <p>Cadastre e acompanhe as solicitações de inscrição.</p>
           </div>
 
           <span className="inscricoes-contador">
             {totalInscricoes}{" "}
-            {totalInscricoes === 1 ? "participante" : "participantes"}
+            {totalInscricoes === 1 ? "solicitação" : "solicitações"}
           </span>
         </header>
 
@@ -241,7 +255,18 @@ export default function EventoDetalhes() {
           </div>
 
           <div className="inscricoes-lista-card">
-            <h3>Participantes inscritos</h3>
+            <div className="inscricoes-lista-topo">
+              <h3>Solicitações de inscrição</h3>
+
+              <button
+                type="button"
+                className="botao-atualizar-inscricoes"
+                onClick={() => carregarInscricoes(false)}
+                disabled={carregandoInscricoes || atualizandoInscricoes}
+              >
+                {atualizandoInscricoes ? "Atualizando..." : "Atualizar status"}
+              </button>
+            </div>
 
             {carregandoInscricoes && (
               <p className="inscricoes-estado">Carregando inscrições...</p>

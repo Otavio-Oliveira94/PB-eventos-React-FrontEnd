@@ -421,13 +421,17 @@ input {
 }
 
 .inscricao-card {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    minmax(160px, 0.55fr)
+    auto;
+  align-items: start;
   gap: 18px;
   padding: 16px;
   background: #f9fafb;
   border: 1px solid #e5e7eb;
+  border-radius: 8px;
   border-radius: 8px;
 }
 
@@ -448,6 +452,90 @@ input {
   margin-top: 8px;
   font-size: 0.85rem;
   color: #6b7280;
+}
+
+.inscricoes-lista-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.inscricoes-lista-topo h3 {
+  margin-bottom: 0;
+}
+
+.botao-atualizar-inscricoes {
+  flex-shrink: 0;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  color: #1d4ed8;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.botao-atualizar-inscricoes:hover:not(:disabled) {
+  background: #dbeafe;
+}
+
+.botao-atualizar-inscricoes:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.inscricao-status-area {
+  min-width: 0;
+}
+
+.inscricao-status-selo {
+  display: inline-block;
+  padding: 5px 10px;
+  font-size: 0.78rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 20px;
+}
+
+.inscricao-status-pendente {
+  color: #92400e;
+  background: #fef3c7;
+  border: 1px solid #fde68a;
+}
+
+.inscricao-status-confirmada {
+  color: #166534;
+  background: #dcfce7;
+  border: 1px solid #bbf7d0;
+}
+
+.inscricao-status-rejeitada {
+  color: #991b1b;
+  background: #fee2e2;
+  border: 1px solid #fecaca;
+}
+
+.inscricao-status-desconhecido {
+  color: #374151;
+  background: #e5e7eb;
+  border: 1px solid #d1d5db;
+}
+
+.inscricao-status-descricao {
+  margin-top: 7px;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: #6b7280;
+}
+
+.inscricao-motivo-rejeicao {
+  margin-top: 7px;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: #991b1b;
 }
 
 .botao-remover-inscricao {
@@ -480,11 +568,20 @@ input {
   }
 
   .inscricao-card {
-    align-items: flex-start;
+    grid-template-columns: 1fr;
+  }
+
+  .botao-remover-inscricao,
+  .botao-atualizar-inscricoes {
+    width: 100%;
+  }
+
+  .inscricoes-lista-topo {
+    align-items: stretch;
     flex-direction: column;
   }
 
-  .botao-remover-inscricao {
+  .inscricao-status-area {
     width: 100%;
   }
 }
