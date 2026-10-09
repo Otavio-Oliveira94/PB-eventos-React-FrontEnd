@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8081/inscricoes";
+const API_URL = "/api/inscricoes-service/inscricoes";
 
 async function processarResposta(response) {
   if (!response.ok) {

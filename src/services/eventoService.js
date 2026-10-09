@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:8080/eventos";
+const API_URL = "/api/eventos-service/eventos";
 
 async function processarResposta(response) {
   if (!response.ok) {
@@ -14,11 +14,13 @@ async function processarResposta(response) {
 
 export async function exibirEventos() {
   const response = await fetch(API_URL);
+
   return processarResposta(response);
 }
 
 export async function buscarEventoPorId(id) {
   const response = await fetch(`${API_URL}/${id}`);
+
   return processarResposta(response);
 }
 
